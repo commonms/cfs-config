@@ -11,7 +11,7 @@ services:
         command: --config-file /etc/git2consul.d/config.json
         volumes:
             - /c/Users/git2consul.d:/etc/git2consul.d
-        dependes_on:
+        depends_on:
             - consul
     mongo-express:
         image: mongo-express
