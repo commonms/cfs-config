@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "repos" : [{
+    "name" : "config",
+    "url" : "https://github.com/commonms/cfs-config.git",
+    "include_branch_name" : false,
+    "branches" : ["master"],
+    "hooks": [{
+      "type" : "polling",
+      "interval" : "1"
+    }]
+  }]
+}
