@@ -2,11 +2,12 @@ version: '2'
 services:
     consul:
         image: consul
-        command: agent -ui -bind=${CFS_CONFIG_CONSUL_SERVER} -retry-join={CFS_CONFIG_CONSUL_JOIN}
+        command: agent -ui -bind=${CFS_CONFIG_CONSUL_SERVER} -retry-join={CFS_CONFIG_CONSUL_JOIN} -client=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
     cfs-connector:
-        image: commonms/cfs-connector
-        ports:
-            - "8080:8080"
+        image: commonms/cfs-connector:0.1.0
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+        network_mode: host
         depends_on:
             - consul

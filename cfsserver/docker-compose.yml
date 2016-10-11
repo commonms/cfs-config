@@ -2,27 +2,30 @@ version: '2'
 services:
     consul:
         image: consul
-        command: agent -ui -server -bind=${CFS_CONFIG_CONSUL_SERVER} -bootstrap-expect=1
+        command: agent -ui -server -bind=${CFS_CONFIG_CONSUL_SERVER} -bootstrap-expect=1 -client=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
-    mongo:
-        image: mongo
     git2consul:
         image: cimpress/git2consul
-        command: --config-file /etc/git2consul.d/config.json
+        command: --config-file /etc/git2consul.d/config.json --endpoint ${CFS_CONFIG_CONSUL_SERVER}
+        network_mode: host
         volumes:
             - /c/Users/git2consul.d:/etc/git2consul.d
         depends_on:
             - consul
+    cfs-core:
+        image: commonms/cfs-core:0.1.0
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
+            - mongo
     mongo-express:
         image: mongo-express
         ports:
             - "8081:8081"
         depends_on:
             - mongo
-    cfs-core:
-        image: commonms/cfs-core
-        ports:
-            - "8080:8080"
-        depends_on:
-            - consul
-            - mongo
+    mongo:
+        image: mongo
