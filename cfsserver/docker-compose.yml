@@ -5,8 +5,11 @@ services:
         command: agent -ui -server -bind=${CFS_CONFIG_CONSUL_SERVER} -bootstrap-expect=1 -client=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
     git2consul:
-        image: cimpress/git2consul
-        command: --config-file /etc/git2consul.d/config.json --endpoint ${CFS_CONFIG_CONSUL_SERVER}
+        image: knieschraube/git2consul
+        entrypoint: sh wait_for_consul_leader.sh
+        environment:
+            - CONSUL_ENDPOINT=${CFS_CONFIG_CONSUL_SERVER}
+            - COMMAND=--config-file /etc/git2consul.d/config.json
         network_mode: host
         volumes:
             - /c/Users/git2consul.d:/etc/git2consul.d
