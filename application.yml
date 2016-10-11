@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://172.24.0.2:27017/instruments
+      uri: mongodb://${CFS_CONFIG_CONSUL_SERVER}:27017/instruments
