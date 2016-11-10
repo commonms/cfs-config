@@ -10,8 +10,8 @@ Developing in Windows
 4. Clone the projects:
 	1. [cfs-core](https://github.com/commonms/cfs-core)
 	2. [cfs-connector](https://github.com/commonms/cfs-connector)
-5. Run *consul* using the script `cfs-core/run-consul.cmd` **leave the console open**
-6. Within the Docker Toolbox bash (Docker Quickstart Terminal shortcut) connect to the Docker machine (default): `docker-machine ssh`.
+5. Run *consul* using the script `cfs-core/run-consul.cmd` **leave the console open**.
+6. Within the Docker Toolbox bash (*Docker Quickstart Terminal shortcut*) connect to the Docker machine (*default*): `docker-machine ssh`.
 Once connected make sure there exist the file `/etc/resolv.conf` with these contents:
 
 	```
@@ -20,10 +20,10 @@ Once connected make sure there exist the file `/etc/resolv.conf` with these cont
 	nameserver 8.8.4.4
 	```
 Otherwise run:
-	
+
 	```
 	docker@default:~$ sudo -i
-	root@default:~# echo "nameserver 8.8.8.8\nnameserver 8.8.4.4" >> /etc/resolv.conf
+	root@default:~# echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" >> /etc/resolv.conf
 	root@default:~# exit
 	docker@default:~$ exit
 	```
@@ -41,7 +41,7 @@ Otherwise run:
 10. Run the projects (*cfs-core* and *cfs-connector*) with the following system variables:
 
 	```
-	-Dspring.cloud.consul.host=192.168.99.1 	-Dspring.cloud.consul.discovery.prefer-ip-address=true 	-Dspring.cloud.consul.discovery.ip-address=127.0.0.1
+	-Dspring.cloud.consul.host=192.168.99.1 -Dspring.cloud.consul.discovery.prefer-ip-address=true -Dspring.cloud.consul.discovery.ip-address=127.0.0.1
 	```
 11. If you get a '...MongoSocketOpenException: Exception opening socket' do something like:
 	
