@@ -43,5 +43,26 @@ Otherwise run:
 	```
 	-Dspring.cloud.consul.host=192.168.99.1 	-Dspring.cloud.consul.discovery.prefer-ip-address=true 	-Dspring.cloud.consul.discovery.ip-address=127.0.0.1
 	```
-11. You can inspect the running services in http://192.168.99.1:8500/ui/#/dc1/services
+11. If you get a '...MongoSocketOpenException: Exception opening socket' do something like:
+	
+	```
+	$docker-machine ssh
+	docker@default:~$ vi mongod.conf
+	# /etc/mongod.conf
+	
+	# Listen to local interface only. Comment out to listen on all interfaces.
+	bind_ip=127.0.0.1
+
+	~
+	~
+	~
+	:wq
+	docker@default:~$ sudo -i
+	root@default:~# cp /home/docker/mongod.conf /etc/.
+	root@default:~# exit
+	docker@default:~$ exit
+	$docker restart cfs-db
+	```
+	
+12. You can inspect the running services in http://192.168.99.1:8500/ui/#/dc1/services
 and the properties in http://192.168.99.1:8500/ui/#/dc1/kv/
