@@ -47,7 +47,8 @@ Otherwise run:
 	
 	```
 	$docker-machine ssh
-	docker@default:~$ vi mongod.conf
+	docker@default:~$ sudo -i
+	root@default:~# vi /etc/mongod.conf
 	# /etc/mongod.conf
 	
 	# Listen to local interface only. Comment out to listen on all interfaces.
@@ -57,8 +58,6 @@ Otherwise run:
 	~
 	~
 	:wq
-	docker@default:~$ sudo -i
-	root@default:~# cp /home/docker/mongod.conf /etc/.
 	root@default:~# exit
 	docker@default:~$ exit
 	$docker restart cfs-db
