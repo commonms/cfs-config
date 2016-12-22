@@ -15,8 +15,8 @@ services:
             - /c/Users/git2consul.d:/etc/git2consul.d
         depends_on:
             - consul
-    cfs-connector:
-        image: commonms/cfs-connector:0.1.0
+    cfs-connector-reuters:
+        image: commonms/cfs-connector-reuters
         environment:
             - CFS_CONFIG_CONSUL_SERVER
         network_mode: host
@@ -24,22 +24,11 @@ services:
             - consul
             - git2consul
     cfs-core:
-        image: commonms/cfs-core:0.1.0
+        image: commonms/cfs-core
         environment:
             - CFS_CONFIG_CONSUL_SERVER
         network_mode: host
         depends_on:
             - consul
             - git2consul
-            - cfs-connector
-            - mongo
-    mongo-express:
-        image: mongo-express
-        environment:
-            - ME_CONFIG_MONGODB_SERVER=${CFS_CONFIG_CONSUL_SERVER}
-        network_mode: host
-        depends_on:
-            - mongo
-    mongo:
-        image: mongo
-        network_mode: host
+            - cfs-connector-reuters

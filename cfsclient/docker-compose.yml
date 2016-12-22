@@ -4,8 +4,8 @@ services:
         image: consul
         command: agent -ui -bind=${CFS_CONFIG_CONSUL_SERVER} -retry-join=${CFS_CONFIG_CONSUL_JOIN} -client=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
-    cfs-connector:
-        image: commonms/cfs-connector:0.1.0
+    cfs-connector-reuters:
+        image: commonms/cfs-connector-reuters
         environment:
             - CFS_CONFIG_CONSUL_SERVER
         network_mode: host
