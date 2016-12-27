@@ -19,6 +19,7 @@ services:
         image: commonms/cfs-connector-reuters
         environment:
             - CFS_CONFIG_CONSUL_SERVER
+            - _JAVA_OPTIONS=${JAVA_OPTS}
         network_mode: host
         depends_on:
             - consul

@@ -62,6 +62,5 @@ Otherwise run:
 	docker@default:~$ exit
 	$docker restart cfs-db
 	```
-	
 12. You can inspect the running services in http://192.168.99.1:8500/ui/#/dc1/services
 and the properties in http://192.168.99.1:8500/ui/#/dc1/kv/
