@@ -1,4 +1,1 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://${CFS_CONFIG_CONSUL_SERVER}:27017/instruments
+#There is not global configuration yet
