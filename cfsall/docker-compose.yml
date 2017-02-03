@@ -12,9 +12,20 @@ services:
             - COMMAND=--config-file /etc/git2consul.d/config.json
         network_mode: host
         volumes:
-            - /c/Users/git2consul.d:/etc/git2consul.d
+            - /c/Users/${USERNAME}/git/cfs-config:/etc/git2consul.d
         depends_on:
             - consul
+    mongo:
+        image: mongo
+        network_mode: host
+    mongo-express:
+        image: mongo-express
+        environment:
+            - ME_CONFIG_MONGODB_SERVER=${CFS_CONFIG_CONSUL_SERVER}
+        ports:
+            - "8281:8081"
+        depends_on:
+            - mongo
     cfs-connector-reuters:
         image: commonms/cfs-connector-reuters
         environment:
@@ -24,6 +35,34 @@ services:
         depends_on:
             - consul
             - git2consul
+    cfs-connector-bloomberg:
+        image: commonms/cfs-connector-bloomberg
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+            - _JAVA_OPTIONS=${JAVA_OPTS}
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
+    cfs-connector-infobolsa:
+        image: commonms/cfs-connector-infobolsa
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+            - _JAVA_OPTIONS=${JAVA_OPTS}
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
+    cfs-connector-mongodb:
+        image: commonms/cfs-connector-mongodb
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+            - _JAVA_OPTIONS=${JAVA_OPTS}
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
+            - mongo
     cfs-core:
         image: commonms/cfs-core
         environment:
@@ -33,3 +72,22 @@ services:
             - consul
             - git2consul
             - cfs-connector-reuters
+            - cfs-connector-bloomberg
+            - cfs-connector-infobolsa
+            - cfs-connector-mongodb
+    cfs-admin:
+        image: commonms/cfs-admin
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
+    cfs-monitor:
+        image: commonms/cfs-monitor
+        environment:
+            - CFS_CONFIG_CONSUL_SERVER
+        network_mode: host
+        depends_on:
+            - consul
+            - git2consul
