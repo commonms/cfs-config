@@ -2,7 +2,7 @@
   "version": "1.0",
   "repos" : [{
     "name" : "config",
-    "url" : "https://github.com/commonms/cfs-config.git",
+    "url" : "/etc/git2consul.d",
     "include_branch_name" : false,
     "branches" : ["master"],
     "hooks": [{
