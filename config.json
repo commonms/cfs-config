@@ -2,7 +2,7 @@
   "version": "1.0",
   "repos" : [{
     "name" : "config",
-    "url" : "https://github.com/commonms/cfs-config.git",
+    "url" : "D:/apps/eclipse-jee-neon/git/cfs-config",
     "include_branch_name" : false,
     "branches" : ["master"],
     "hooks": [{
