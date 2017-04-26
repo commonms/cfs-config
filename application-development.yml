@@ -1,6 +1,6 @@
 logging:
   level:
-    root: ERROR
+    root: WARN
     com:
       commonms:
-        cfs: INFO
+        cfs: TRACE
