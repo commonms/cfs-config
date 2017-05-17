@@ -3,7 +3,7 @@
   "repos" : [{
     "name" : "config",
     "url" : "https://github.com/commonms/cfs-config.git",
-    "include_branch_name" : false,
+    "include_branch_name" : true,
     "branches" : ["master", "security"],
     "hooks": [{
       "type" : "polling",
