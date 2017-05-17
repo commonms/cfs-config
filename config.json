@@ -4,7 +4,7 @@
     "name" : "config",
     "url" : "https://github.com/commonms/cfs-config.git",
     "include_branch_name" : false,
-    "branches" : ["master"],
+    "branches" : ["master", "security"],
     "hooks": [{
       "type" : "polling",
       "interval" : "1"
