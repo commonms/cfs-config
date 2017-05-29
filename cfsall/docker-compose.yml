@@ -5,7 +5,7 @@ services:
         command: agent -ui -server -bind=${CFS_CONFIG_CONSUL_SERVER} -bootstrap-expect=1 -client=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
     git2consul:
-        image: knieschraube/git2consul
+        image: commonms/git2consul
         entrypoint: sh wait_for_consul_leader.sh
         environment:
             - CONSUL_ENDPOINT=${CFS_CONFIG_CONSUL_SERVER}
@@ -15,6 +15,14 @@ services:
             - /c/Users/${USERNAME}/git/cfs-config:/etc/git2consul.d
         depends_on:
             - consul
+    mysql:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=cabrono2
+            - MYSQL_DATABASE=cfs-admin-db
+            - MYSQL_USER=cfs
+            - MYSQL_PASSWORD=cfspass
+        network_mode: host
     mongo:
         image: mongo
         network_mode: host
@@ -60,6 +68,7 @@ services:
         image: commonms/cfs-connector-mongodb
         environment:
             - CFS_CONFIG_CONSUL_SERVER
+            - CFS_MONGO_HOST=${CFS_CONFIG_CONSUL_SERVER}
             - _JAVA_OPTIONS=${JAVA_OPTS}
         network_mode: host
         mem_limit: 512M
@@ -86,17 +95,21 @@ services:
         image: commonms/cfs-admin
         environment:
             - CFS_CONFIG_CONSUL_SERVER
+            - CFS_MYSQL_HOST=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
         mem_limit: 512M
         depends_on:
             - consul
             - git2consul
+            - mysql
     cfs-monitor:
         image: commonms/cfs-monitor
         environment:
             - CFS_CONFIG_CONSUL_SERVER
+            - CFS_MONGO_HOST=${CFS_CONFIG_CONSUL_SERVER}
         network_mode: host
         mem_limit: 512M
         depends_on:
             - consul
             - git2consul
+            - mongo
